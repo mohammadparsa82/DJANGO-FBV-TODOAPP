@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h1>Task List</h1>
+        <hr>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control rounded-4" name="title" placeholder="Enter task title"
+            aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+        <hr>
+        {% for task in tasks %}
+            {% if task.complete == True %}
+
+                <p>{{task.title}}</p>
+            
+            {% else %}
+                {{task}}
+
+            {% endif %}
+            
+
+            <a href="{% url 'update_task' pk=task.id %}">Edit</a>
+            <a href="{% url 'delete_task' pk=task.id %}">Delete</a>
+            <hr>
+        {% endfor %}
+
+
+    </form>
+</body>
+</html>

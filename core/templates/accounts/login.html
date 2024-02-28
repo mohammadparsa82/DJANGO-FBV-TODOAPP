@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+        <a href="{% url 'accounts:register' %}">
+            <input type="button" value="creat account">
+        </a>
+        {% if form.errors %}
+        <div class="alert alert-error">
+        <h6>Please fix the following errors</h6>
+        <ul>
+            {% for field in form %}
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+        {% endif %}
+    </div>
+        {% endif %}
+
+    </form>
+</body>
+</html>
